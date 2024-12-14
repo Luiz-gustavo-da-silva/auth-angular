@@ -40,3 +40,13 @@ $auth-angular-theme: mat.define-light-theme((
 @tailwind utilities;
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.snack-success {
+  background-color: #4caf50; /* Verde */
+  color: #fff;
+}
+
+.snack-error {
+  background-color: #f44336; /* Vermelho */
+  color: #fff;
+}

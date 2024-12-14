@@ -11,6 +11,7 @@ import { CommonModule } from '@angular/common';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { FormsModule } from '@angular/forms';
 import { Status } from '../../core/models/status-interface';
+import { SnackbarService } from '../../core/services/snackbar.service';
 
 @Component({
   selector: 'app-users',
@@ -36,14 +37,14 @@ export class UsersComponent {
   ];
   dataSource = new MatTableDataSource<User>([]);
 
-  errorMessage: string | null = null;
   userRole: string | null = null;
 
   constructor(
     private usersService: UsersService,
     private router: Router,
     public dialog: MatDialog,
-    private autenticacaoService: AutenticacaoService
+    private autenticacaoService: AutenticacaoService,
+    private snackbarService: SnackbarService
   ) {}
 
   ngOnInit(): void {
@@ -60,7 +61,7 @@ export class UsersComponent {
         }));
       },
       error: (err) => {
-        this.errorMessage = err.message || 'Ocorreu um erro';
+        this.snackbarService.showSnackBar("Error find all!", "error");
       },
     });
   }
@@ -73,10 +74,11 @@ export class UsersComponent {
 
     this.usersService.updateStatus(status).subscribe({
       next: (response) => {
+        this.snackbarService.showSnackBar("Status updated successfully!", "success");
         this.findAll();
       },
       error: (err) => {
-        this.errorMessage = err.message || 'Ocorreu um erro';
+        this.snackbarService.showSnackBar("Error updating status. Please try again", "error");
       },
     });
   }

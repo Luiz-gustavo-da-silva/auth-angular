@@ -1,0 +1,68 @@
+<app-layout>
+    <h1 class="text-2xl font-bold text-black mb-6">Profile</h1>
+  
+    <div class="w-full flex justify-center border rounded-2xl p-4 ">
+      <div class="flex flex-col w-1/4">
+        <h3 class="text-1xl font-bold text-black mb-2">Change Password</h3>
+        <form
+          class="space-y-4"
+          [formGroup]="form"
+          (ngSubmit)="onSubmit()"
+        >
+          <div class="mb-4">
+            <label for="oldPassword" class="block font-medium text-gray-700"
+              >Old Password</label
+            >
+            <input
+              id="oldPassword"
+              type="password"
+              formControlName="oldPassword"
+              [class.border-red-500]="
+                form.get('oldPassword')?.touched &&
+                form.get('oldPassword')?.invalid
+              "
+              class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+            />
+            <p
+              *ngIf="form.get('oldPassword')?.touched && form.get('oldPassword')?.errors?.['required']"
+              class="text-red-500 text-sm mt-1"
+            >
+              Old Password is required.
+            </p>
+          </div>
+  
+          <div class="mb-4">
+            <label
+              for="newPassword"
+              class="block text-sm font-medium text-gray-700"
+              >New Password</label
+            >
+            <input
+              id="newPassword"
+              type="password"
+              formControlName="newPassword"
+              [class.border-red-500]="
+                form.get('newPassword')?.touched &&
+                form.get('newPassword')?.invalid
+              "
+              class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+            />
+            <p
+              *ngIf="form.get('newPassword')?.touched && form.get('newPassword')?.errors?.['required']"
+              class="text-red-500 text-sm mt-1"
+            >
+              New Password is required.
+            </p>
+          </div>
+  
+          <button
+            type="submit"
+            class="w-full py-2 px-4 bg-black text-white rounded-md hover:bg-gray-900 transition"
+          >
+            Change Password
+          </button>
+        </form>
+      </div>
+    </div>
+  </app-layout>
+  

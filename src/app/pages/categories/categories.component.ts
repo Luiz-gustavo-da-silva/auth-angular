@@ -9,6 +9,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { CategoryModalComponent } from '../../shared/components/category-modal/category-modal.component';
 import { AutenticacaoService } from '../../core/services/autenticacao.service';
 import { CommonModule } from '@angular/common';
+import { SnackbarService } from '../../core/services/snackbar.service';
 
 @Component({
   selector: 'app-categories',
@@ -17,7 +18,7 @@ import { CommonModule } from '@angular/common';
   templateUrl: './categories.component.html',
   styleUrl: './categories.component.scss',
 })
-export class CategoriesComponent implements OnInit{
+export class CategoriesComponent implements OnInit {
   displayedColumns: string[] = ['id', 'name', 'action'];
   dataSource = new MatTableDataSource<Category>([]);
 
@@ -25,15 +26,16 @@ export class CategoriesComponent implements OnInit{
   userRole: string | null = null;
 
   constructor(
-     private categoryService: CategoryService,
-     private router: Router,
-     public dialog: MatDialog,
-     private autenticacaoService: AutenticacaoService,
-   ) {}
+    private categoryService: CategoryService,
+    private router: Router,
+    public dialog: MatDialog,
+    private autenticacaoService: AutenticacaoService,
+    private snackbarService: SnackbarService
+  ) {}
 
   ngOnInit(): void {
-      this.findAll();
-      this.userRole = this.autenticacaoService.getRole();
+    this.findAll();
+    this.userRole = this.autenticacaoService.getRole();
   }
 
   findAll() {
@@ -42,26 +44,30 @@ export class CategoriesComponent implements OnInit{
         this.dataSource.data = response;
       },
       error: (err) => {
+        this.snackbarService.showSnackBar(
+          'Error find all. Please try again',
+          'error'
+        );
         this.errorMessage = err.message || 'Ocorreu um erro';
       },
     });
   }
 
-  addCategory(){
+  addCategory() {
     const dialogRef = this.dialog.open(CategoryModalComponent, {
       width: '400px',
-      data: null
+      data: null,
     });
 
     dialogRef.afterClosed().subscribe(() => {
       this.findAll();
     });
   }
-  
-  updateCategory(element: any){
+
+  updateCategory(element: any) {
     const dialogRef = this.dialog.open(CategoryModalComponent, {
       width: '400px',
-      data: element
+      data: element,
     });
 
     dialogRef.afterClosed().subscribe(() => {
@@ -73,5 +79,3 @@ export class CategoriesComponent implements OnInit{
     return this.userRole === 'admin';
   }
 }
-
-

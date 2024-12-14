@@ -10,6 +10,7 @@ import { FormsModule } from '@angular/forms';
 import { CategoryService } from '../../../core/services/category.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { AutenticacaoService } from '../../../core/services/autenticacao.service';
+import { SnackbarService } from '../../../core/services/snackbar.service';
 
 @Component({
   selector: 'app-category-modal',
@@ -36,7 +37,8 @@ export class CategoryModalComponent{
     public dialogRef: MatDialogRef<CategoryModalComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private categoryService: CategoryService,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private snackbarService: SnackbarService
   ) {
     if (data) {
       this.action = true;
@@ -56,11 +58,11 @@ export class CategoryModalComponent{
   updateCategory() {
     this.categoryService.updateCategory(this.category).subscribe({
       next: (response) => {
-        this.showSnackBar('Categoria atualizada com sucesso!', 'success');
+        this.snackbarService.showSnackBar('Categoria atualizada com sucesso!', 'success');
         this.onClose();
       },
       error: (err) => {
-        this.showSnackBar('Erro ao atualizar a categoria.', 'error');
+        this.snackbarService.showSnackBar('Erro ao atualizar a categoria.', 'error');
       },
     });
   }
@@ -68,19 +70,12 @@ export class CategoryModalComponent{
   addCategory() {
     this.categoryService.addCategory(this.category).subscribe({
       next: (response) => {
-        this.showSnackBar('Categoria adicionada com sucesso!', 'success');
+        this.snackbarService.showSnackBar('Categoria adicionada com sucesso!', 'success');
         this.onClose();
       },
       error: (err) => {
-        this.showSnackBar('Erro ao adicionar a categoria.', 'error');
+        this.snackbarService.showSnackBar('Erro ao adicionar a categoria.', 'error');
       },
     });
   } 
-
-  private showSnackBar(message: string, action: string) {
-    this.snackBar.open(message, action, {
-      duration: 3000,
-      panelClass: action === 'success' ? ['snack-success'] : ['snack-error'],
-    });
-  }
 }
