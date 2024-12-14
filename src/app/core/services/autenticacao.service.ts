@@ -41,9 +41,8 @@ export class AutenticacaoService {
     return this.storageService.get(TOKEN_KEY);
   }
 
-  signup(signup: SignupForm):Observable<SignupResponse> {
-    console.log(signup);
-    return this.httpClient.post<SignupResponse>(`${this.baseUrl}/user/signup`, signup);
+  signup(signup: SignupForm):Observable<DefaultResponse> {
+    return this.httpClient.post<DefaultResponse>(`${this.baseUrl}/user/signup`, signup);
   }
 
   getRole(): string | null {
@@ -65,6 +64,6 @@ interface AuthResponse {
   token: string;
 }
 
-interface SignupResponse{
+export interface DefaultResponse{
   massage: string;
 }

@@ -13,4 +13,18 @@ export const routes: Routes = [
         (c) => c.HomeComponent,
       ),
   },
+  {
+    path: 'categories',
+    loadComponent: () =>
+      import('../../pages/categories/categories.component').then(
+        (c) => c.CategoriesComponent,
+      ),
+  },
+  {
+    path: 'users',
+    loadComponent: () =>
+      import('../../pages/users/users.component').then(
+        (c) => c.UsersComponent,
+      ),
+  },
 ];
