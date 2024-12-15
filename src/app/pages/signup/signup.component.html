@@ -111,18 +111,20 @@
             <div class="relative">
               <input
                 id="password"
-                type="password"
+                [type]="hidePassword ? 'password' : 'text'"
                 formControlName="password"
+                placeholder="Enter your password"
                 [class.border-red-500]="
                   form.get('password')?.touched && form.get('password')?.invalid
                 "
-                placeholder="Choose a strong password"
                 class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
               />
               <span
-                class="absolute inset-y-0 right-3 flex items-center cursor-pointer"
-                >👁️</span
+                class="absolute inset-y-0 right-3 flex items-center cursor-pointer material-symbols-outlined text-gray-500 text-[20px]"
+                (click)="togglePasswordVisibility()"
               >
+                {{ hidePassword ? "visibility" : "visibility_off" }}
+              </span>
             </div>
             <p
               *ngIf="form.get('password')?.touched && form.get('password')?.errors?.['required']"

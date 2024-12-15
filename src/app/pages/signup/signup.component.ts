@@ -22,6 +22,7 @@ import { SnackbarService } from '../../core/services/snackbar.service';
 })
 export class SignupComponent {
   form!: FormGroup;
+  hidePassword: boolean = true;
 
   constructor(
     private fb: FormBuilder,
@@ -63,5 +64,9 @@ export class SignupComponent {
         this.snackbarService.showSnackBar('Error signup!', 'error');
       },
     });
+  }
+
+  togglePasswordVisibility(): void {
+    this.hidePassword = !this.hidePassword;
   }
 }

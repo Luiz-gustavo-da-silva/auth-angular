@@ -21,6 +21,7 @@ import { SnackbarService } from '../../core/services/snackbar.service';
 export class LoginComponent {
   form!: FormGroup;
   errorMessage: string | null = null;
+  hidePassword: boolean = true;
 
   constructor(
     private fb: FormBuilder,
@@ -58,5 +59,9 @@ export class LoginComponent {
         this.snackbarService.showSnackBar("Login error", "error")
       },
     });
+  }
+
+  togglePasswordVisibility(): void {
+    this.hidePassword = !this.hidePassword;
   }
 }
