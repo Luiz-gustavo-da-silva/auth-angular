@@ -4,7 +4,7 @@ import { AutenticacaoService, DefaultResponse } from './autenticacao.service';
 import { User } from '../models/user-interface copy';
 import { Observable } from 'rxjs';
 import { Status } from '../models/status-interface';
-import { ChangePassword } from '../models/changepassword-interface';
+import { ChangePasswordForm } from '../models/changePassword-interface'; 
 
 @Injectable({
   providedIn: 'root',
@@ -33,7 +33,7 @@ export class UsersService {
     );
   }
 
-  changePassword(form: ChangePassword): Observable<DefaultResponse>{
+  changePassword(form: ChangePasswordForm): Observable<DefaultResponse>{
     const token = this.autenticacaoService.usuarioLogado?.token;
     const headers = { Authorization: `Bearer ${token}` };
     return this.httpClient.post<DefaultResponse>(

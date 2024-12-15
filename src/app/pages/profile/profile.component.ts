@@ -6,10 +6,9 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { AutenticacaoService } from '../../core/services/autenticacao.service';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { ChangePassword } from '../../core/models/changepassword-interface';
+import { ChangePasswordForm } from '../../core/models/changePassword-interface';
 import { UsersService } from '../../core/services/users.service';
 import { SnackbarService } from '../../core/services/snackbar.service';
 
@@ -40,7 +39,7 @@ export class ProfileComponent implements OnInit {
 
     const formValues = this.form.getRawValue();
 
-    const form: ChangePassword = {
+    const form: ChangePasswordForm = {
       oldPassword: formValues.oldPassword,
       newPassword: formValues.newPassword,
     };
